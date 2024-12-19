@@ -1,0 +1,26 @@
+{
+  "name": "@app/auth-db",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "exports": {
+    "./detached": "./detached.js",
+    "./services": "./services.js",
+    "./models/schemas": "./src/models/schemas.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "darthrichlius <hello@rdieud.com> (https://github.com/darthrichlius)",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@app/lib": "workspace:^",
+    "@dotenvx/dotenvx": "^1.29.0",
+    "commander": "^12.1.0",
+    "debug": "^4.3.7",
+    "dotenv": "^16.4.5",
+    "joi": "^17.13.3",
+    "mongoose": "^8.8.2"
+  }
+}

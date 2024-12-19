@@ -1,0 +1,40 @@
+image: docker:24 # Use the Docker image to build and run containers
+
+services:
+  - docker:24-dind # Docker-in-Docker for managing containers in the pipeline
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+stages:
+- test
+- build
+- deploy
+
+
+sast:
+  stage: test
+include:
+- template: Security/SAST.gitlab-ci.yml
+
+
+test:
+  stage: test
+  services:
+    - docker:24-dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+  before_script:
+    - apk add --no-cache docker-compose make
+  script:
+    - make test
+    - make run-test
+  artifacts: # defines files or directories that you want to persist after the job completes
+    when: always
+    paths:
+      - packages/auth/coverage/ # Save coverage reports
+    expire_in: 1 week
+  after_script:
+    # Clean up containers after the test stage
+    - make docker-stop

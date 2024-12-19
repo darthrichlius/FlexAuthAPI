@@ -1,0 +1,58 @@
+module.exports = [
+  {
+    name: "item name 1",
+    owner: "PAPA of RDL",
+    tags: ["tag1"],
+    isPublished: true,
+    duration: 70,
+  },
+  {
+    name: "item name 2",
+    owner: "PAPA of JDL",
+    tags: ["tag1"],
+    isPublished: true,
+    duration: 34,
+  },
+  {
+    name: "item name 3",
+    owner: "RDL",
+    tags: ["tag1", "tag2"],
+    isPublished: true,
+    duration: 10,
+  },
+  {
+    name: "item name 4",
+    owner: "JDL",
+    tags: ["tag1", "tag2"],
+    isPublished: true,
+    duration: 15,
+  },
+  {
+    name: "item name 5",
+    owner: "JDL",
+    tags: ["tag1", "tag2", "tag4"],
+    isPublished: false,
+    duration: 30,
+  },
+  {
+    name: "item name 6",
+    owner: "unknown",
+    tags: ["tag1", "tag2", "tag4"],
+    isPublished: false,
+    duration: 25,
+  },
+  {
+    name: "item name 7",
+    owner: "unknown",
+    tags: ["tag1", "tag2", "tag4", "tag9"],
+    isPublished: false,
+    duration: 100,
+  },
+  {
+    name: "item name 8",
+    owner: "tintin",
+    tags: ["tag1", "tag2", "tag4", "tag6"],
+    isPublished: true,
+    duration: 10,
+  },
+];

@@ -1,0 +1,43 @@
+{
+  "name": "@fastmicroservicesjs/auth",
+  "version": "0.1.0",
+  "description": "Ready-to-use nodejs auth service template",
+  "author": "darthrichlius <hello@rdieud.com> (https://github.com/darthrichlius)",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "scripts": {
+    "start": "node scripts/start.js",
+    "start:test": "node scripts/start.js",
+    "start:dev": "nodemon --cwd packages/auth scripts/start.js",
+    "start-app-auth-db": "nodemon --cwd packages/auth-db packages/auth-db/index.js",
+    "start-app-auth": "nodemon --cwd packages/auth packages/auth/index.js",
+    "start-app-api": "nodemon packages/api/index.js",
+    "prepare": "husky",
+    "test": "yarn workspaces foreach run test --colors",
+    "build": "node esbuild.config.js"
+  },
+  "keywords": [
+    "authentication",
+    "authorization",
+    "express",
+    "microservices",
+    "monorepo",
+    "nodejs",
+    "express"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=3.5"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "esbuild": "^0.24.0",
+    "esbuild-node-externals": "^1.16.0",
+    "husky": "^9.1.7"
+  },
+  "packageManager": "yarn@3.5.0"
+}

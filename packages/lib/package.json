@@ -1,0 +1,19 @@
+{
+  "name": "@app/lib",
+  "private": true,
+  "exports": {
+    "./api/helpers": "./src/api/helpers/index.js",
+    "./api/middlewares": "./src/api/middlewares/index.js",
+    "./handlers": "./src/handlers/index.js",
+    "./middlewares": "./src/middlewares/index.js",
+    "./utils": "./src/utils/index.js"
+  },
+  "packageManager": "yarn@3.5.1",
+  "dependencies": {
+    "debug": "^4.4.0",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "winston": "^3.17.0",
+    "winston-mongodb": "^6.0.0"
+  }
+}

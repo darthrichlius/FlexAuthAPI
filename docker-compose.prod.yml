@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  auth:
+    build:
+      context: .
+      dockerfile: packages/auth/Dockerfile
+      target: ${BUILD_TARGET:-prod} # Default to "dev" if not specified
+    container_name: auth
+    ports:
+      - "5001:5001" # Map the container's port to the host's port
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+    volumes:
+      # without tmpfs that could have helped in preventing locking situation
+      # Solved by removing the folder before build and starting the container
+      - ./dist:/app/dist # Local volume to persist artifacts
+    depends_on:
+      - mongo # Ensure mongo service starts before nginx
+    command: ["yarn", "run", "start"]
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    ports:
+      - "27018:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo_data: # Declare the named volume here
