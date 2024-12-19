@@ -1,0 +1,1 @@
+var o=(r,e)=>()=>(e||r((e={exports:{}}).exports,e),e.exports);var t=o((n,s)=>{s.exports=(r,e)=>{let a=r.validate(e);if(a.error)return a.error.details.map(i=>i.message)}});var d=t();module.exports={validate:d};

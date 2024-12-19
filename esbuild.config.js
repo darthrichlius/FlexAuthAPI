@@ -30,17 +30,40 @@ packages.forEach((pkg) => {
   }
 
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-  const entryPoint = packageJson.main || "index.js"; // Default to index.js if main is not defined
 
-  const entryFile = path.join(inputDir, entryPoint);
-  if (!fs.existsSync(entryFile)) {
-    console.warn(`No entry file found for ${pkg}. Skipping...`);
+  // Collect entry points from both main and exports (if present)
+  let entryPoints = [];
+
+  if (packageJson.main) {
+    entryPoints.push(path.join(inputDir, packageJson.main)); // Default main entry point
+  }
+
+  if (packageJson.exports) {
+    // Add entry points from the `exports` field
+    if (typeof packageJson.exports === "object") {
+      // For complex export objects, we want to check the conditions
+      Object.keys(packageJson.exports).forEach((key) => {
+        const exportPath = packageJson.exports[key];
+        if (typeof exportPath === "string") {
+          entryPoints.push(path.join(inputDir, exportPath)); // Handle simple exports
+        } else if (exportPath.import) {
+          entryPoints.push(path.join(inputDir, exportPath.import)); // Handle import condition
+        }
+      });
+    } else if (typeof packageJson.exports === "string") {
+      // Handle simple string export (for example, exports: "./index.js")
+      entryPoints.push(path.join(inputDir, packageJson.exports));
+    }
+  }
+
+  if (entryPoints.length === 0) {
+    console.warn(`No entry points found for ${pkg}. Skipping...`);
     return;
   }
 
   esbuild
     .build({
-      entryPoints: [entryFile],
+      entryPoints: entryPoints,
       bundle: true, // Must bundle to use external
       platform: "node",
       minify: true,

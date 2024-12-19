@@ -1,0 +1,1 @@
+var n=(r,e)=>()=>(e||r((e={exports:{}}).exports,e),e.exports);var t=n((p,s)=>{var q=require("winston");s.exports=(r,e,o,c)=>{q.error(r.message,r),o.status(500).send("Unexpected error")}});var x=t();module.exports={reqError:x};

@@ -4,7 +4,16 @@ const env = process.env.NODE_ENV || "";
 /**
  * dotenvx seems not able to handle this case alone
  */
-require("@dotenvx/dotenvx").config({ path: `.env${env ? "." + env : ""}` });
+try {
+  // We try our best to resolve variable using a available file
+  require("@dotenvx/dotenvx").config({ path: `.env${env ? "." + env : ""}` });
+} catch (err) {
+  /**
+   * There are 2 case:
+   * 1. The .env.* file doesn't exist and it will crash at sanity()
+   * 2. We had added the environment variables globally and it will WORK
+   **/
+}
 
 let server;
 
