@@ -1,0 +1,1 @@
+const fs=require("fs"),path=require("path"),dotenv=require("dotenv"),envFiles=[".env",".env.local",".env.test",".env.production"];module.exports=o=>{for(const n of envFiles){const e=path.resolve(o,n);if(fs.existsSync(e)){dotenv.config({path:e}),console.log(`Loaded ${e}`);break}}};

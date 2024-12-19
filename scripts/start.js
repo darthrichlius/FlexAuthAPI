@@ -4,4 +4,4 @@ const path = require("path");
 process.chdir(path.join(__dirname, "..", "packages", "auth"));
 
 // Start the application
-require("../packages/auth/dist/index.js");
+require("../packages/auth/index.js");

@@ -1,0 +1,1 @@
+const mongoose=require("mongoose"),itemSchema=new mongoose.Schema({name:String,owner:String,tags:[String],date:{type:Date,default:Date.now},isPublished:Boolean,duration:Number}),Item=mongoose.model("Items",itemSchema);module.exports={Item};

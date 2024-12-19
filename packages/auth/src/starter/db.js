@@ -1,0 +1,1 @@
+const{connect,attach}=require("@app/auth-db/detached"),{userDbSchema}=require("@app/auth-db/models/schemas"),{setDbClient}=require("../globals/db"),{setModels}=require("../globals/models");module.exports=()=>{try{let e={};const s=connect();attach(s,[{name:"User",schema:userDbSchema}]).map(t=>{e={...e,[t.modelName]:t}}),setDbClient(s),setModels(e)}catch(e){throw new Error(e)}};

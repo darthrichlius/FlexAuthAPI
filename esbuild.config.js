@@ -1,9 +1,8 @@
 const esbuild = require("esbuild");
-const { nodeExternalsPlugin } = require("esbuild-node-externals");
 const fs = require("fs");
 const path = require("path");
 
-// Define the packages directory
+// Define the root packages directory
 const packagesDir = path.join(__dirname, "packages");
 
 // Find all package directories
@@ -12,75 +11,62 @@ const packages = fs.readdirSync(packagesDir).filter((dir) => {
   return fs.statSync(fullPath).isDirectory();
 });
 
+// Function to get all files recursively in a directory
+function getAllFiles(dir) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  return entries.flatMap((entry) =>
+    entry.isDirectory()
+      ? getAllFiles(path.join(dir, entry.name))
+      : path.join(dir, entry.name)
+  );
+}
+
 // Build each package
 packages.forEach((pkg) => {
-  const inputDir = path.join(packagesDir, pkg);
-  const outputDir = path.join(inputDir, "dist"); // Output in package's dist folder
+  const inputDir = path.join(packagesDir, pkg, "src");
+  const outputDir = path.join(packagesDir, pkg, "dist");
 
   // Ensure the output directory exists
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  // Load the package.json file to detect entry points
-  const packageJsonPath = path.join(inputDir, "package.json");
-  if (!fs.existsSync(packageJsonPath)) {
-    console.warn(`No package.json found for ${pkg}. Skipping...`);
+  // Check if src folder exists
+  if (!fs.existsSync(inputDir)) {
+    console.warn(`No src directory found for ${pkg}. Skipping...`);
     return;
   }
 
-  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
+  // Get all source files (only .js and .ts files)
+  const sourceFiles = getAllFiles(inputDir).filter((file) =>
+    /\.(js|ts)$/.test(file)
+  );
 
-  // Collect entry points from both main and exports (if present)
-  let entryPoints = [];
+  sourceFiles.forEach((file) => {
+    const relativePath = path.relative(inputDir, file); // Relative to src folder
+    const outputFile = path.join(outputDir, relativePath); // Target path in dist
 
-  if (packageJson.main) {
-    entryPoints.push(path.join(inputDir, packageJson.main)); // Default main entry point
-  }
-
-  if (packageJson.exports) {
-    // Add entry points from the `exports` field
-    if (typeof packageJson.exports === "object") {
-      // For complex export objects, we want to check the conditions
-      Object.keys(packageJson.exports).forEach((key) => {
-        const exportPath = packageJson.exports[key];
-        if (typeof exportPath === "string") {
-          entryPoints.push(path.join(inputDir, exportPath)); // Handle simple exports
-        } else if (exportPath.import) {
-          entryPoints.push(path.join(inputDir, exportPath.import)); // Handle import condition
-        }
-      });
-    } else if (typeof packageJson.exports === "string") {
-      // Handle simple string export (for example, exports: "./index.js")
-      entryPoints.push(path.join(inputDir, packageJson.exports));
+    // Ensure target directories exist
+    const outputDirPath = path.dirname(outputFile);
+    if (!fs.existsSync(outputDirPath)) {
+      fs.mkdirSync(outputDirPath, { recursive: true });
     }
-  }
 
-  if (entryPoints.length === 0) {
-    console.warn(`No entry points found for ${pkg}. Skipping...`);
-    return;
-  }
-
-  esbuild
-    .build({
-      entryPoints: entryPoints,
-      bundle: true, // Must bundle to use external
-      platform: "node",
-      minify: true,
-      sourcemap: false,
-      target: "node18",
-      legalComments: "none",
-      outdir: outputDir,
-      external: [
-        ...Object.keys(packageJson.dependencies || {}),
-        ...Object.keys(packageJson.peerDependencies || {}),
-      ],
-      plugins: [nodeExternalsPlugin()], // Exclude node_modules and workspace dependencies
-      logLevel: "info",
-    })
-    .then(() => console.log(`Build completed for package: ${pkg}`))
-    .catch((err) => {
-      console.error(`Failed to build package: ${pkg}`, err);
-      process.exit(1);
-    });
+    // Build the file with esbuild
+    esbuild
+      .build({
+        entryPoints: [file],
+        outfile: outputFile,
+        platform: "node",
+        minify: true,
+        sourcemap: false,
+        target: "node18",
+        legalComments: "none",
+      })
+      .then(() => console.log(`Built: ${pkg}/${relativePath}`))
+      .catch((err) => {
+        console.error(`Failed to build ${pkg}/${relativePath}`, err);
+        process.exit(1);
+      });
+  });
 });

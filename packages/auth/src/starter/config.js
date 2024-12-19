@@ -1,0 +1,1 @@
+const path=require("node:path"),{logger}=require("@app/lib/utils");module.exports=o=>{logger.configure([logger.withMongoDbTransport("mongodb://localhost/node-template",{level:"error"}),logger.withFileTransport(path.resolve(o,"logs/log.log")),logger.withConsoleTransport()])};

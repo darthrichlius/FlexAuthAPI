@@ -1,0 +1,1 @@
+const appDebugger=require("../utils/debugger"),requiredVars=["DEBUG","MONGO_URI","MONGO_TIMEOUTMS"],hasMissingRequiredEnvVar=()=>requiredVars.find(e=>{if(!process.env[e])return appDebugger.error(`Missing required env var: ${e}`),!0});module.exports=()=>{let r=!0;if(hasMissingRequiredEnvVar())throw r=!1,new Error("RuntimeError: missing required Env");r||process.exit(1)};

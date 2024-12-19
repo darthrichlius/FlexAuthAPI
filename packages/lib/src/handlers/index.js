@@ -1,0 +1,1 @@
+const onExit=require("./onExit"),onUncaughtError=require("./onUncaughtError"),onUnhandledRejectionError=require("./onUnhandledRejectionError");module.exports={onExit,onUncaughtError,onUnhandledRejectionError};

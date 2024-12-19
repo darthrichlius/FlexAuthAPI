@@ -1,0 +1,1 @@
+const config=require("./config"),db=require("./db"),dev=require("./dev"),handlers=require("./handlers"),middlewareBefore=require("./middlewares/before"),middlewareFinally=require("./middlewares/finally"),prod=require("./prod"),routes=require("./routes"),sanity=require("./sanity");module.exports={config,db,dev,handlers,middlewareBefore,middlewareFinally,prod,routes,sanity};

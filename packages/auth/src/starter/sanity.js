@@ -1,0 +1,1 @@
+const requiredVars=["NODE_ENV","PORT","MONGO_URI","MONGO_TIMEOUTMS","JWT_SECRET","DEBUG"],hasMissingRequiredEnvVar=()=>requiredVars.find(s=>{if(!process.env[s])return!0});module.exports=()=>{let r=!0;if(hasMissingRequiredEnvVar())throw r=!1,new Error("RuntimeError: missing required Env");r||process.exit(1)};

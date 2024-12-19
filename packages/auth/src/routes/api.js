@@ -1,0 +1,1 @@
+const{Router}=require("express"),{authenticated}=require("../middlewares/auth"),{asyncError}=require("@app/lib/middlewares"),router=Router(),authenticatedRoute=(t,e)=>{e.sendStatus(200)};router.get("/ping",(t,e)=>{e.sendStatus(200)}),router.get("/__test__/authenticated",[authenticated],asyncError(authenticatedRoute)),module.exports=router;
