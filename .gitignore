@@ -48,7 +48,8 @@ Desktop.ini
 
 # Build and production files
 build/
-dist/
+# dist/
+packages/*/src
 
 # Coverage
 coverage/
