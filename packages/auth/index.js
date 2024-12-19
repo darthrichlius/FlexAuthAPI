@@ -1,3 +1,5 @@
+require("../../integrations/sentry/instrument");
+
 const express = require("express");
 const app = express();
 const env = process.env.NODE_ENV || "";
