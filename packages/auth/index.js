@@ -48,11 +48,17 @@ const PORT =
     ? process.env.RUN_TEST_PORT
     : process.env.PORT || 5001;
 
-server.listen(PORT, () => {
-  appDebugger.info(
-    `... Running in ${env || "development"} mode on PORT :${PORT}...`
-  );
-});
+/**
+ * Check if the server is already listening before calling listen
+ * Fix: Vercel "Server already called"
+ */
+if (!server.listening) {
+  server.listen(PORT, () => {
+    appDebugger.info(
+      `... Running in ${env || "development"} mode on PORT :${PORT}...`
+    );
+  });
+}
 
 // Export server for testing or other purposes
 module.exports = server;
