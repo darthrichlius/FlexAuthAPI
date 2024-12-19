@@ -5,8 +5,12 @@ const env = process.env.NODE_ENV || "";
  * dotenvx seems not able to handle this case alone
  */
 try {
-  // We try our best to resolve variable using a available file
-  require("@dotenvx/dotenvx").config({ path: `.env${env ? "." + env : ""}` });
+  /**
+   * We try our best to resolve variable using a available file
+   * @todo we remove the ability to resolved .env for now
+   * Our cloud provider doesn't allow .env file
+   */
+  //require("@dotenvx/dotenvx").config({ path: `.env${env ? "." + env : ""}` });
 } catch (err) {
   /**
    * There are 2 case:
