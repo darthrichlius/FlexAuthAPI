@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const esbuild = require("esbuild");
-const { sentryEsbuildPlugin } = require("@sentry/esbuild-plugin");
 
 // Define the root packages directory
 const packagesDir = path.join(__dirname, "packages");
@@ -59,23 +58,11 @@ packages.forEach((pkg) => {
         entryPoints: [file],
         outfile: outputFile,
         platform: "node",
-        // Because it is required by Sentry
-        bundle: true,
+        bundle: false,
         minify: true,
         sourcemap: false,
         target: "node18",
         legalComments: "none",
-        plugins: [
-          // Put the Sentry esbuild plugin after all other plugins
-          sentryEsbuildPlugin({
-            authToken: process.env.SENTRY_AUTH_TOKEN,
-            org: "rd-of",
-            project: "fastmicroservices-auth-abstract",
-          }),
-        ],
-        loader: {
-          ".html": "file", // Add this line to handle .html files
-        },
       })
       .then(() => console.log(`Built: ${pkg}/${relativePath}`))
       .catch((err) => {
