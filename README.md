@@ -2,6 +2,8 @@
 
 A standards-compliant OAuth service and provider.
 
+> **⚠️ Important:** Do not use before version v0.3-rc.
+
 ## ABOUT THE PROJECT
 
 ### Status
@@ -30,15 +32,23 @@ FlexAuth is designed to be used in both user-centric and microservices-oriented 
 ## FEATURES
 
 **Note:** This is the envisioned feature set. As of now, not all features may be available.  
-Refer to the roadmap and changelog for the latest updates.
+Refer to the [roadmap](#) and changelog for the latest updates.
 
 ### Authentication
 
+For a comprehensive list and description of features, refer to [FEATURES.md](FEATURES.md).
+
 **As an authentication provider:**
 
-- Token-based credentials generation
+- Token-based credential generation (JWTs)
 - Multi-factor authentication (MFA)
+  - TOTP (Time-based One-Time Password)
+  - Email OTP (One-Time Password)
+  - SMS OTP
 - Single Sign-On (SSO) across multiple platforms
+- Passkey authentication (Passwordless authentication)
+- Remember Me functionality for persistent sessions
+- Email validation to ensure functional addresses
 
 **As a proxy for third-party authentication:**
 
@@ -48,7 +58,7 @@ Refer to the roadmap and changelog for the latest updates.
 
 ### Compatibility
 
-- Token-based authentication (OAuth 2.0)
+- OAuth 2.0 Token-based authentication
 - Session-based authentication
 - Cookie-based authentication
 
