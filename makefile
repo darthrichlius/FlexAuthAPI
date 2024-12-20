@@ -12,6 +12,25 @@ prepare:
 	@echo "Preparing environment..."
 	@mkdir -p mongo_data
 
+.PHONY: switch_to_src
+switch_to_src:
+	@echo "Renaming 'src' to 'src.bak' and 'dist' to 'src' for all packages..."
+	@node ./scripts/switch-src.js dist-to-src
+	@echo "Renaming complete.
+
+.PHONY: src-restore
+src-restore:
+	@echo "Renaming 'src.bak' back to 'src' for all packages..."
+	@node ./scripts/switch-src.js src-restore
+	@echo "Reverse renaming complete."
+
+.PHONY: src-restore-dangerous
+src-restore-dangerous:
+	@echo "Renaming 'src.bak' back to 'src' for all packages..."
+	@rm -rf packages/*/src
+	@node ./scripts/switch-src.js src-restore
+	@echo "Reverse renaming complete."
+
 # Clean target: Removes all containers, images, volumes, and networks for a fresh start
 .PHONY: clean
 clean:

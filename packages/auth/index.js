@@ -31,6 +31,7 @@ starter.handlers(process);
 starter.sanity();
 starter.db();
 starter.middlewareBefore(app);
+starter.observability(app);
 starter.routes(app);
 starter.middlewareFinally(app);
 
