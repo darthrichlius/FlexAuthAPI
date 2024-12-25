@@ -1,1 +1,1 @@
-const userDbSchema=require("./users");module.exports={userDbSchema};
+const userDbSchema=require("./user");module.exports={userDbSchema};

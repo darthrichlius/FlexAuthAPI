@@ -15,7 +15,7 @@ For a deeper understanding of the design decisions, architecture, and implementa
 
 ### Vision
 
-To build a secure, standalone, and reusable authentication service that simplifies the implementation of authentication and authorization for both users and applications.
+To build a secure, standalone (self-hosted), and reusable authentication service that simplifies the implementation of authentication and authorization for both users and applications.
 
 ### Purpose
 
@@ -23,9 +23,9 @@ FlexAuth aims to provide a ready-to-integrate authentication service with modern
 
 ### Target Use Cases
 
-FlexAuth is designed to be used in both user-centric and microservices-oriented environments.
+FlexAuth is designed to be used in both **user-centric** and **microservices-oriented** environments.
 
-- **For users**, the goal is to provide an intuitive and customizable authentication experience.
+- **For users**, the goal is to provide an intuitive and customizable visual authentication experience.
 - **For developers**, FlexAuth serves as a turnkey solution to integrate secure, scalable authentication and authorization into distributed systems.
 - **For applications**, FlexAuth provides an OAuth-based service to manage fine-grained access control and authorization.
 
@@ -83,6 +83,17 @@ For example, you must implement your own observability tools and manage your own
 **IT IS FUNCTIONAL, STABLE FOR TESTING, AND USABLE IN NON-PRODUCTION ENVIRONMENTS.**
 
 You can run the project locally using Docker (recommended).
+
+
+## CONTRIBUTING
+
+This project is not intended for collaborative contributions.  
+If you are interested in collaborating on an authentication project, we recommend exploring [OpenAuth](https://github.com/openauthjs/openauth).
+
+Collaborating requires dedicated time and resources to manage contributions effectively.  
+Unfortunately, we currently lack the capacity to provide the necessary support.  
+As accepting collaboration without ensuring a qualitative approach goes against our values, we have chosen to not allow collaboration at this time.
+
 
 ## LICENSE
 

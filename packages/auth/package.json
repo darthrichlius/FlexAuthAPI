@@ -17,13 +17,15 @@
     "@dotenvx/dotenvx": "^1.29.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
+    "crypto": "^1.0.1",
     "debug": "^4.3.7",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "helmet": "^8.0.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "otplib": "^12.0.1"
   },
   "devDependencies": {
     "jest": "^29.7.0",

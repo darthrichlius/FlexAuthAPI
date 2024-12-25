@@ -1,1 +1,1 @@
-const{api:apiRouter,auth:authRouter,user:userRouter}=require("../routes");module.exports=u=>{u.use("/api/auth",authRouter),u.use("/api/users",userRouter),u.use("/api",apiRouter)};
+const{api:apiRouter,auth:authRouter,mfa:mfaRouter,token:tokenRouter,user:userRouter}=require("../routes");module.exports=e=>{e.use("/api",apiRouter),e.use("/api/auth",authRouter),e.use("/api/mfa",mfaRouter),e.use("/api/token",tokenRouter),e.use("/api/users",userRouter)};

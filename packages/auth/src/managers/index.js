@@ -1,1 +1,1 @@
-const user=require("./user"),password=require("./password"),token=require("./token");module.exports={userManager:user,passwordManager:password,tokenManager:token};
+const mfa=require("./mfa"),password=require("./password"),token=require("./token"),user=require("./user");module.exports={mfaManager:mfa,passwordManager:password,tokenManager:token,userManager:user};
