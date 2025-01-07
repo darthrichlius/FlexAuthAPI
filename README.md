@@ -2,13 +2,13 @@
 
 A standards-compliant OAuth service and provider.
 
-> **⚠️ Important:** Do not use before version v0.3-rc.
+> **⚠️ Important:** Do not use before version >=v0.3 (gold) for 2FA stable integration; >=v0.5 (gold) for OAuth 2.0 stable integration.
 
 ## ABOUT THE PROJECT
 
 ### Status
 
-The project is **under active development**.
+The project is ⚠️**under active development**.⚠️
 
 **Important:** Please read the disclaimer section carefully before proceeding.  
 For a deeper understanding of the design decisions, architecture, and implementation, refer to the documentation section.
